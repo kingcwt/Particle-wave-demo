@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            overflow: hidden;
+        }
+    </style>
+    <script src="./three.js"></script>
+</head>
+<body>
+
+
+<script>
+
+    //创造一个场景
+    var scene = new THREE.Scene();
+
+    //创造一个相机
+    //参数1 视角
+    //参数2 横纵比
+    //参数3 近面的距离
+    //参数4 远面的距离
+    var camera = new THREE.PerspectiveCamera(65,window.innerWidth/window.innerHeight,100,10000);
+
+    //创造一个渲染器
+    var renderer = new THREE.WebGLRenderer({
+        antialias:true//去锯齿
+    });
+    renderer.setSize(window.innerWidth,window.innerHeight);//设置渲染区域的大小
+    document.body.appendChild(renderer.domElement);//把创造好的anvas添加到页面
+
+    //创造一个几何体
+    var geometry = new THREE.BoxGeometry(100,100,100);
+    //几何体材质
+    var material = new THREE.MeshBasicMaterial({color:0x00ff00});
+    //几何体和材料合起来
+    var cube = new THREE.Mesh(geometry,material);
+    cube.rotation.x=0.7;
+    cube.rotation.y=0.5;
+    //把网格放到场景中
+    scene.add(cube);
+    //给相机设置一个位置
+    camera.position.z=500;
+    renderer.render(scene,camera);
+
+    function animate(){
+        requestAnimationFrame(animate);
+        cube.rotation.y+=0.01;
+        renderer.render(scene,camera);
+    }
+    animate();
+</script>
+</body>
+</html>
